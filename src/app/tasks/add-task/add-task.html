@@ -1,0 +1,30 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="title">task title</label>
+    <input type="title" name="title" formControlName="title" />
+  </div>
+
+  <div>
+    <label for="description">add Description</label>
+    <input type="description" name="description" formControlName="description" />
+  </div>
+
+  <label for="courses">choose the course which the task will be under</label>
+  <select formControlName="course">
+    @for (course of courses; track course.id) {
+      <option [value]="course.id">{{ course.title }}</option>
+    }
+  </select>
+
+  <label for="dueDate"> choose the due Date</label>
+  <input type="date" formControlName="dueDate" />
+
+  <label for="priority">Choose the Periority of your task</label>
+  <select name="priority" formControlName="priority">
+    <option value="low">low</option>
+    <option value="medium">medium</option>
+    <option value="high">high</option>
+  </select>
+
+  <button type="submit">Submit</button>
+</form>

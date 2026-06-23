@@ -1,0 +1,51 @@
+<aside class="dashboard-sidebar">
+  <div class="sidebar-brand">
+    <span class="brand-mark">SF</span>
+
+    <div>
+      <h2>StudyFlow</h2>
+      <p>Student dashboard</p>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav" aria-label="Dashboard navigation">
+    <a routerLink="/dashboard" routerLinkActive="active">
+      <span>Overview</span>
+    </a>
+
+    <a routerLink="/courses" routerLinkActive="active">
+      <span>Courses</span>
+    </a>
+
+    <a routerLink="/tasks" routerLinkActive="active">
+      <span>Tasks</span>
+    </a>
+
+    <a routerLink="/notes" routerLinkActive="active">
+      <span>Notes</span>
+    </a>
+
+    <a routerLink="/sessions" routerLinkActive="active">
+      <span>Study Sessions</span>
+    </a>
+
+    <a routerLink="/goals" routerLinkActive="active">
+      <span>Goals</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-progress">
+    <p class="progress-label">Weekly focus</p>
+    <strong>12.5h</strong>
+
+    <div class="progress-track" aria-hidden="true">
+      <span></span>
+    </div>
+
+    <p class="progress-note">Keep your study rhythm steady.</p>
+  </div>
+
+  <button class="logout-button" type="button">
+    Logout
+  </button>
+</aside>

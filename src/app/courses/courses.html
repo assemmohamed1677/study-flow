@@ -1,0 +1,51 @@
+<main class="courses-page">
+  <section class="courses-hero">
+    <div>
+      <p class="section-label">Courses</p>
+      <h1>Your study map</h1>
+      <p>
+        Keep every subject, skill, and learning path organized before you start adding tasks and
+        notes.
+      </p>
+    </div>
+
+    <button class="add-course-button" type="button" (click)="showAddCourseForum()">
+      Add Course
+    </button>
+  </section>
+
+  <section class="courses-section">
+    <div class="section-heading">
+      <div>
+        <p class="section-label">Current Courses</p>
+        <h2>Your Courses</h2>
+      </div>
+    </div>
+
+    <ul class="courses-grid">
+      @for (course of courses; track course.id) {
+        <li class="course-card">
+          <div class="course-card-top">
+            <span class="course-color {{ course.color }}"></span>
+            <span class="course-progress">{{ course.progress }}</span>
+          </div>
+
+          <h3>{{ course.title }}</h3>
+          <p>{{ course.description }}</p>
+          <button (click)="onDelete(course.id)">Delete Course</button>
+        </li>
+      } @empty {
+        <li class="empty-courses">
+          <h3>No courses yet</h3>
+          <p>Add your first course to start building your study flow.</p>
+        </li>
+      }
+    </ul>
+  </section>
+</main>
+
+@if (isAddingCourse) {
+  <div class="modal-backdrop">
+    <app-add-courses (addCourse)="onAddCourse($event)" (close)="onCloseForm()"></app-add-courses>
+  </div>
+}

@@ -1,0 +1,7 @@
+<h1>Taks</h1>
+<h3>The tasks that you have to do</h3>
+<button (click)="onAddingTask()">Add Task</button>
+
+@if (isAddingTask) {
+  <app-add-task [courses]="courses" (createTask)="onCreateTask($event)"></app-add-task>
+}

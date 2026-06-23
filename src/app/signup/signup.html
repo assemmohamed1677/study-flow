@@ -1,0 +1,62 @@
+<section class="signup-page">
+  <div class="signup-card">
+    <header class="signup-header">
+      <h1>Create Account</h1>
+      <p>Join StudyFlow and start organizing your study progress.</p>
+    </header>
+
+    <form class="signup-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="Enter your email"
+        />
+      </div>
+
+      <div class="password-group" formGroupName="passwords">
+        <div class="form-field">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            placeholder="Enter your password"
+          />
+        </div>
+
+        <div class="form-field">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            id="confirmPassword"
+            type="password"
+            formControlName="confirmPassword"
+            placeholder="Confirm your password"
+          />
+        </div>
+      </div>
+
+      <button class="signup-button" type="submit">
+        Create Account
+      </button>
+
+      <div class="errors">
+        @if (emailInvalid) {
+          <p class="error-control">Please enter a valid email address.</p>
+        }
+
+        @if (passwordInvalid) {
+          <p class="error-control">
+            Password must be at least 6 characters.
+          </p>
+        }
+
+        @if (passwordsNotMatched) {
+          <p class="error-control">Passwords do not match.</p>
+        }
+      </div>
+    </form>
+  </div>
+</section>
