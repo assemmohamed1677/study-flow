@@ -5,26 +5,24 @@
       <h1>Welcome back, Assem</h1>
       <p class="welcome-text">Ready to continue your learning journey?</p>
     </div>
-
-    <button class="primary-action" type="button">Add Task</button>
   </section>
 
   <section class="stats-grid" aria-label="Study summary">
     <article class="dashboard-card">
       <p>Active Courses</p>
-      <strong>4</strong>
+      <strong>{{ courses.length }}</strong>
       <span>Courses in progress</span>
     </article>
 
     <article class="dashboard-card">
       <p>Pending Tasks</p>
-      <strong>5</strong>
+      <strong>{{ pendingTasks }}</strong>
       <span>Need your attention</span>
     </article>
 
     <article class="dashboard-card">
       <p>Completed Tasks</p>
-      <strong>7</strong>
+      <strong>{{ completedTasks }}</strong>
       <span>Nice progress this week</span>
     </article>
 
@@ -43,7 +41,14 @@
           <h2>Today's Tasks</h2>
         </div>
 
-        <button class="secondary-action" type="button">View All</button>
+        <button
+          class="secondary-action"
+          type="button"
+          routerLink="/tasks"
+          routerLinkActive="active"
+        >
+          View All
+        </button>
       </div>
 
       <ul>

@@ -17,10 +17,16 @@ export class Tasks implements OnInit {
   private platformId = inject(PLATFORM_ID);
 
   onAddingTask() {
+    this.loadCourses();
     this.isAddingTask = true;
   }
 
   ngOnInit(): void {
+    this.loadCourses();
+    this.loadTasks();
+  }
+
+  private loadCourses() {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
@@ -29,12 +35,51 @@ export class Tasks implements OnInit {
     if (savedCourses) {
       const correctTypeCourses = JSON.parse(savedCourses);
       this.courses = correctTypeCourses;
-      console.log(this.courses);
+    } else {
+      this.courses = [];
     }
   }
 
   onCreateTask(addedTask: task) {
     this.tasks.push(addedTask);
+    this.isAddingTask = false;
+    this.saveTasks();
     console.log(this.tasks);
+  }
+
+  closeForm() {
+    this.isAddingTask = false;
+  }
+
+  onCompleteTask(completedTask: task) {
+    completedTask.status = 'DONE';
+    this.saveTasks();
+  }
+
+  onDeleteTask(deletedTask: task) {
+    this.tasks = this.tasks.filter((task) => task.id !== deletedTask.id);
+    this.saveTasks();
+  }
+
+  private loadTasks() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    const savedTasks = window.localStorage.getItem('tasks');
+    if (savedTasks) {
+      const loadedTasks = JSON.parse(savedTasks);
+      this.tasks = loadedTasks;
+    } else {
+      this.tasks = [];
+    }
+  }
+
+  private saveTasks() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    window.localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 }

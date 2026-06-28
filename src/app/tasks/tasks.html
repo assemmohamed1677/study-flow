@@ -1,7 +1,141 @@
-<h1>Taks</h1>
-<h3>The tasks that you have to do</h3>
-<button (click)="onAddingTask()">Add Task</button>
+<main class="tasks-page">
+  <section class="tasks-hero">
+    <div>
+      <p class="section-label">Tasks</p>
+      <h1>Your focus list</h1>
+      <p>Plan the work connected to each course and keep your study sessions clear.</p>
+    </div>
+
+    <button class="add-task-button" type="button" (click)="onAddingTask()">Add Task</button>
+  </section>
+
+  <section class="tasks-section">
+    <div class="section-heading">
+      <div>
+        <p class="section-label">Available Tasks</p>
+        <h2>Study tasks</h2>
+      </div>
+    </div>
+
+    <ul class="tasks-grid">
+      @for (task of tasks; track task.id) {
+        @if (task.status !== 'DONE') {
+          <li class="task-card {{ task.priority }}">
+            <div class="task-card-header">
+              <div>
+                <span class="priority-label {{ task.priority }}">{{ task.priority }}</span>
+                <h3>{{ task.title }}</h3>
+              </div>
+
+              <span class="status-pill">{{ task.status }}</span>
+            </div>
+
+            <p class="task-description">{{ task.description }}</p>
+
+            <div class="task-meta">
+              <div class="meta-item">
+                <span class="meta-label">Course</span>
+                <strong>
+                  @for (course of courses; track course.id) {
+                    @if (course.id === task.courseId) {
+                      {{ course.title }}
+                    }
+                  }
+                </strong>
+              </div>
+
+              <div class="meta-item">
+                <span class="meta-label">Due date</span>
+                <strong>{{ task.dueDate }}</strong>
+              </div>
+            </div>
+
+            <div class="task-actions">
+              <button class="complete-button" type="button" (click)="onCompleteTask(task)">
+                Completed
+              </button>
+              <button class="edit-button" type="button">Edit</button>
+              <button class="delete-button" type="button" (click)="onDeleteTask(task)">
+                Delete
+              </button>
+            </div>
+          </li>
+        }
+      } @empty {
+        <li class="empty-tasks">
+          <h3>No tasks yet</h3>
+          <p>Add your first task and connect it to one of your courses.</p>
+        </li>
+      }
+    </ul>
+  </section>
+  <section class="tasks-section completed-section">
+    <div class="section-heading completed-heading">
+      <div>
+        <p class="section-label">Completed Tasks</p>
+        <h2>Finished work</h2>
+      </div>
+
+      <span class="completed-badge">Done</span>
+    </div>
+
+    <ul class="tasks-grid completed-grid">
+      @for (task of tasks; track task.id) {
+        @if (task.status == 'DONE') {
+          <li class="task-card completed-card {{ task.priority }}">
+            <div class="task-card-header">
+              <div>
+                <span class="priority-label completed-label">Completed</span>
+                <h3>{{ task.title }}</h3>
+              </div>
+
+              <span class="status-pill completed-status">{{ task.status }}</span>
+            </div>
+
+            <p class="task-description">{{ task.description }}</p>
+
+            <div class="task-meta">
+              <div class="meta-item">
+                <span class="meta-label">Course</span>
+                <strong>
+                  @for (course of courses; track course.id) {
+                    @if (course.id === task.courseId) {
+                      {{ course.title }}
+                    }
+                  }
+                </strong>
+              </div>
+
+              <div class="meta-item">
+                <span class="meta-label">Completed date</span>
+                <strong>{{ task.dueDate }}</strong>
+              </div>
+            </div>
+
+            <div class="task-actions">
+              <button class="edit-button" type="button">Edit</button>
+              <button class="delete-button" type="button" (click)="onDeleteTask(task)">
+                Delete
+              </button>
+            </div>
+          </li>
+        }
+      } @empty {
+        <li class="empty-tasks completed-empty">
+          <h3>No completed tasks yet</h3>
+          <p>Completed tasks will appear here after you mark them as done.</p>
+        </li>
+      }
+    </ul>
+  </section>
+</main>
 
 @if (isAddingTask) {
-  <app-add-task [courses]="courses" (createTask)="onCreateTask($event)"></app-add-task>
+  <div class="modal-backdrop">
+    <app-add-task
+      (closeTaskForm)="closeForm()"
+      [courses]="courses"
+      (createTask)="onCreateTask($event)"
+    ></app-add-task>
+  </div>
 }

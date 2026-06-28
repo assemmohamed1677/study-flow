@@ -1,5 +1,7 @@
 <section class="signup-page">
   <div class="signup-card">
+    <button class="back-button" type="button" routerLink="/">Back to home</button>
+
     <header class="signup-header">
       <h1>Create Account</h1>
       <p>Join StudyFlow and start organizing your study progress.</p>
@@ -8,12 +10,15 @@
     <form class="signup-form" [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="form-field">
         <label for="email">Email</label>
-        <input
-          id="email"
-          type="email"
-          formControlName="email"
-          placeholder="Enter your email"
-        />
+        <input id="email" type="email" formControlName="email" placeholder="Enter your email" />
+
+        @if (emailRequired) {
+          <p class="error-control">Email is required.</p>
+        } @else if (emailFormatInvalid) {
+          <p class="error-control">Please enter a valid email address.</p>
+        } @else if (notUniqueEmail()) {
+          <p class="error-control">This email is already registered.</p>
+        }
       </div>
 
       <div class="password-group" formGroupName="passwords">
@@ -25,6 +30,12 @@
             formControlName="password"
             placeholder="Enter your password"
           />
+
+          @if (passwordRequired) {
+            <p class="error-control">Password is required.</p>
+          } @else if (passwordTooShort) {
+            <p class="error-control">Password must be at least 6 characters.</p>
+          }
         </div>
 
         <div class="form-field">
@@ -35,28 +46,18 @@
             formControlName="confirmPassword"
             placeholder="Confirm your password"
           />
+
+          @if (confirmPasswordRequired) {
+            <p class="error-control">Please confirm your password.</p>
+          } @else if (confirmPasswordTooShort) {
+            <p class="error-control">Confirm password must be at least 6 characters.</p>
+          } @else if (passwordsNotMatched) {
+            <p class="error-control">Passwords do not match.</p>
+          }
         </div>
       </div>
 
-      <button class="signup-button" type="submit">
-        Create Account
-      </button>
-
-      <div class="errors">
-        @if (emailInvalid) {
-          <p class="error-control">Please enter a valid email address.</p>
-        }
-
-        @if (passwordInvalid) {
-          <p class="error-control">
-            Password must be at least 6 characters.
-          </p>
-        }
-
-        @if (passwordsNotMatched) {
-          <p class="error-control">Passwords do not match.</p>
-        }
-      </div>
+      <button class="signup-button" type="submit">Create Account</button>
     </form>
   </div>
 </section>

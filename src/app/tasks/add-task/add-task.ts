@@ -11,6 +11,7 @@ import { Course } from '../../course.model';
 })
 export class AddTask {
   @Input() courses: Course[] = [];
+  @Output() closeTaskForm = new EventEmitter();
   @Output() createTask = new EventEmitter<task>();
   form = new FormGroup({
     title: new FormControl('', {
@@ -58,5 +59,9 @@ export class AddTask {
       status: 'OPEN',
     };
     this.createTask.emit(newTask);
+  }
+
+  closeForm() {
+    this.closeTaskForm.emit();
   }
 }

@@ -1,5 +1,7 @@
 <section class="login-page">
   <div class="login-card">
+    <button class="back-button" type="button" routerLink="/">Back to home</button>
+
     <div class="login-header">
       <h1>StudyFlow</h1>
       <p>Organize your study tasks and track your progress.</p>
@@ -9,14 +11,11 @@
       <div class="form-field">
         <label for="email">Email</label>
 
-        <input
-          id="email"
-          type="email"
-          formControlName="email"
-          placeholder="Enter your email"
-        />
+        <input id="email" type="email" formControlName="email" placeholder="Enter your email" />
 
-        @if (emailInvalid) {
+        @if (emailRequired) {
+          <p class="error-control">Email is required.</p>
+        } @else if (emailFormatInvalid) {
           <p class="error-control">Please enter a valid email address.</p>
         }
       </div>
@@ -31,12 +30,16 @@
           placeholder="Enter your password"
         />
 
-        @if (passwordInvalid) {
-          <p class="error-control">
-            Please enter a valid password with a minimum length of 6 characters.
-          </p>
+        @if (passwordRequired) {
+          <p class="error-control">Password is required.</p>
+        } @else if (passwordTooShort) {
+          <p class="error-control">Password must be at least 6 characters.</p>
         }
       </div>
+
+      @if (loginInformationInvalid) {
+        <p class="login-error">Email or password is not correct.</p>
+      }
 
       <button type="submit" class="login-button">Login</button>
     </form>

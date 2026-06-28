@@ -1,30 +1,68 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="title">task title</label>
-    <input type="title" name="title" formControlName="title" />
-  </div>
+<section class="task-form-card">
+  <header class="form-header">
+    <div>
+      <p class="section-label">New Task</p>
+      <h2>Create a study task</h2>
+      <p>Connect the task to one of your courses and choose its deadline and priority.</p>
+    </div>
 
-  <div>
-    <label for="description">add Description</label>
-    <input type="description" name="description" formControlName="description" />
-  </div>
+    <button class="close-button" type="button" aria-label="Close form" (click)="closeForm()">
+      X
+    </button>
+  </header>
 
-  <label for="courses">choose the course which the task will be under</label>
-  <select formControlName="course">
-    @for (course of courses; track course.id) {
-      <option [value]="course.id">{{ course.title }}</option>
-    }
-  </select>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="task-form">
+    <div class="form-field">
+      <label for="title">Task title</label>
+      <input
+        id="title"
+        type="text"
+        name="title"
+        formControlName="title"
+        placeholder="e.g. Finish Angular forms"
+      />
+    </div>
 
-  <label for="dueDate"> choose the due Date</label>
-  <input type="date" formControlName="dueDate" />
+    <div class="form-field">
+      <label for="description">Description</label>
+      <input
+        id="description"
+        type="text"
+        name="description"
+        formControlName="description"
+        placeholder="What do you need to complete?"
+      />
+    </div>
 
-  <label for="priority">Choose the Periority of your task</label>
-  <select name="priority" formControlName="priority">
-    <option value="low">low</option>
-    <option value="medium">medium</option>
-    <option value="high">high</option>
-  </select>
+    <div class="form-field">
+      <label for="courses">Related course</label>
+      <select id="courses" formControlName="course">
+        <option value="" disabled>Choose a course</option>
+        @for (course of courses; track course.id) {
+          <option [value]="course.id">{{ course.title }}</option>
+        } @empty {
+          <option value="" disabled>No courses found</option>
+        }
+      </select>
+    </div>
 
-  <button type="submit">Submit</button>
-</form>
+    <div class="form-row">
+      <div class="form-field">
+        <label for="dueDate">Due date</label>
+        <input id="dueDate" type="date" formControlName="dueDate" />
+      </div>
+
+      <div class="form-field">
+        <label for="priority">Priority</label>
+        <select id="priority" name="priority" formControlName="priority">
+          <option value="" disabled>Choose priority</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+    </div>
+
+    <button type="submit">Create Task</button>
+  </form>
+</section>
